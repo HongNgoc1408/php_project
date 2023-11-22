@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
     $delete_orders = $pdo->prepare("DELETE FROM `orders` WHERE id = ?");
     $delete_orders->execute([$delete_id]);
-    header('location:list_orders.php');
+    header('location:list_orders_pending.php');
     exit();
 }
 
@@ -29,7 +29,7 @@ if (isset($message)) {
 
 ?>
 
-<title>List Orders</title>
+<title>List Orders Pending</title>
 </head>
 
 <body id="page-top">
@@ -59,7 +59,7 @@ if (isset($message)) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng đang chờ xử lý</h1>
 
                     </div>
 
@@ -95,6 +95,7 @@ if (isset($message)) {
                                                                     orders.method, orders.payment_status, orders.id
                                                                 FROM user
                                                                 INNER JOIN orders ON user.id = orders.user_id
+                                                                WHERE payment_status = 'pending'
                                                             ");
                                 $select_info->execute();
                                 if ($select_info->rowCount() > 0) {
@@ -150,7 +151,7 @@ if (isset($message)) {
                                             </td>
                                             <td class="pt-4">
                                                 <a class="btn btn-primary"
-                                                    href="edit_orders.php?update=<?= htmlspecialchars($row['id']); ?>&check_date=<?= date('Y-M-d', strtotime($row['check_date'])); ?>&cancel_date=<?= date('Y-M-d', strtotime($row['cancel_date'])); ?>"
+                                                    href="edit_orders_pending.php?update=<?= htmlspecialchars($row['id']); ?>&check_date=<?= date('Y-M-d', strtotime($row['check_date'])); ?>&cancel_date=<?= date('Y-M-d', strtotime($row['cancel_date'])); ?>"
                                                     class="option-btn">Edit</a>
                                             </td>
                                             <td class="pt-4">
@@ -211,28 +212,26 @@ if (isset($message)) {
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="logout.php">Logout</a>
+                    <a class="btn btn-primary" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Delete Modal -->
-    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
-        aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xóa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <p>Bạn có chắc chắn muốn xóa dòng này?</p>
-                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                    <a id="deleteLink" href="" class="btn btn-danger">Xóa</a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="logout.php">Logout</a>
                 </div>
             </div>
         </div>
@@ -243,7 +242,7 @@ if (isset($message)) {
             $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var Id = button.data('id');
-                var deleteLink = 'list_orders.php?delete=' + Id;
+                var deleteLink = 'list_orders_pending.php?delete=' + Id;
                 $('#deleteLink').attr('href', deleteLink);
             });
         });

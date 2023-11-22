@@ -14,7 +14,7 @@ if (isset($_GET['delete'])) {
     $delete_id = $_GET['delete'];
     $delete_orders = $pdo->prepare("DELETE FROM `orders` WHERE id = ?");
     $delete_orders->execute([$delete_id]);
-    header('location:list_orders.php');
+    header('location:list_orders_cancel.php');
     exit();
 }
 
@@ -29,7 +29,7 @@ if (isset($message)) {
 
 ?>
 
-<title>List Orders</title>
+<title>List Orders Cancel</title>
 </head>
 
 <body id="page-top">
@@ -59,7 +59,7 @@ if (isset($message)) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Danh sách đơn hàng đã hủy</h1>
 
                     </div>
 
@@ -82,7 +82,6 @@ if (isset($message)) {
                                     <th scope="col" class="col-auto">Receive Date</th>
                                     <th scope="col" class="col-auto">Payment Method</th>
                                     <th scope="col" class="col-auto">Payment Status</th>
-                                    <th scope="col" class="col-auto">Edit</th>
                                     <th scope="col" class="col-auto">Delete</th>
                                 </tr>
                             </thead>
@@ -95,6 +94,7 @@ if (isset($message)) {
                                                                     orders.method, orders.payment_status, orders.id
                                                                 FROM user
                                                                 INNER JOIN orders ON user.id = orders.user_id
+                                                                WHERE payment_status = 'cancel'
                                                             ");
                                 $select_info->execute();
                                 if ($select_info->rowCount() > 0) {
@@ -147,11 +147,6 @@ if (isset($message)) {
                                             <td
                                                 class="pt-4 <?= ($row['payment_status'] == 'completed') ? 'text-success' : (($row['payment_status'] == 'cancel') ? 'text-danger' : 'text-primary'); ?>">
                                                 <?= htmlspecialchars($row['payment_status']); ?>
-                                            </td>
-                                            <td class="pt-4">
-                                                <a class="btn btn-primary"
-                                                    href="edit_orders.php?update=<?= htmlspecialchars($row['id']); ?>&check_date=<?= date('Y-M-d', strtotime($row['check_date'])); ?>&cancel_date=<?= date('Y-M-d', strtotime($row['cancel_date'])); ?>"
-                                                    class="option-btn">Edit</a>
                                             </td>
                                             <td class="pt-4">
                                                 <a class="btn btn-danger" data-id="<?= htmlspecialchars($row['id']); ?>"
@@ -243,7 +238,7 @@ if (isset($message)) {
             $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var Id = button.data('id');
-                var deleteLink = 'list_orders.php?delete=' + Id;
+                var deleteLink = 'list_orders_cancel.php?delete=' + Id;
                 $('#deleteLink').attr('href', deleteLink);
             });
         });

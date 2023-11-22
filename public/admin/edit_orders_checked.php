@@ -7,7 +7,7 @@ $admin_id = $_SESSION['admin_id'];
 
 if (!isset($admin_id)) {
     header('location:login.php');
-    exit(); 
+    exit();
 }
 
 if (isset($_POST['update_order'])) {
@@ -16,12 +16,12 @@ if (isset($_POST['update_order'])) {
     $cancel_date = $_POST['cancel_date'];
     $transport_date = $_POST['transport_date'];
     $received_date = $_POST['received_date'];
-    if(isset($_POST['payment_status'])) {
+    if (isset($_POST['payment_status'])) {
         $payment_status = $_POST['payment_status'];
     } else {
         $payment_status = 'pending';
     }
-    
+
     $update_order = $pdo->prepare("UPDATE orders SET check_date = :check_date, cancel_date = :cancel_date, transport_date = :transport_date, received_date = :received_date, payment_status = :payment_status WHERE id = :update_id");
 
     $update_order->bindParam(':check_date', $check_date);
@@ -31,7 +31,7 @@ if (isset($_POST['update_order'])) {
     $update_order->bindParam(':update_id', $update_id);
     $update_order->bindParam(':payment_status', $payment_status);
     $update_order->execute();
-    header('location: list_orders.php');
+    header('location: list_orders_checked.php');
     exit();
 }
 ;
@@ -46,7 +46,7 @@ if (isset($message)) {
 ;
 ?>
 
-<title>Edit Orders</title>
+<title>Edit Orders Checked</title>
 </head>
 
 <body id="page-top">
@@ -92,16 +92,16 @@ if (isset($message)) {
                                     $select_orders->execute([$update_id]);
                                     if ($select_orders->rowCount() > 0) {
                                         while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
-                                    ?>
+                                            ?>
 
-                                    <form id="order-form" class="text_center form-horizontal" action="" method="post"
-                                        enctype="multipart/form-data">
+                                            <form id="order-form" class="text_center form-horizontal" action="" method="post"
+                                                enctype="multipart/form-data">
 
-                                        <div class="form-group">
-                                            <input class="form-control" type="hidden" name="update_id"
-                                            value=<?= htmlspecialchars($fetch_orders['id']); ?>>
-                                        </div>
-                                        <div class="form-group">
+                                                <div class="form-group">
+                                                    <input class="form-control" type="hidden" name="update_id"
+                                                        value=<?= htmlspecialchars($fetch_orders['id']); ?>>
+                                                </div>
+                                                <div class="form-group">
                                                     <select name="payment_status" class="form-control" required>
                                                         <option selected disabled>
                                                             <?= htmlspecialchars($fetch_orders['payment_status']); ?>
@@ -114,39 +114,41 @@ if (isset($message)) {
                                                     </select>
                                                 </div>
 
-                                        <div class="form-group">
-                                            <label for="check_date">Check Date:</label>
-                                            <input type="date" class="form-control" id="check_date" name="check_date"
-                                                value="<?= htmlspecialchars( $fetch_orders['check_date']); ?>">
-                                        </div>
+                                                <div class="form-group">
+                                                    <label for="check_date">Check Date:</label>
+                                                    <input type="date" class="form-control" id="check_date" name="check_date"
+                                                        value="<?= htmlspecialchars($fetch_orders['check_date']); ?>">
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label for="cancel_date">Cancel Date:</label>
-                                            <input type="date" class="form-control" id="cancel_date" name="cancel_date"
-                                                value="<?= htmlspecialchars($fetch_orders['cancel_date']); ?>">
-                                        </div>
+                                                <div class="form-group">
+                                                    <label for="cancel_date">Cancel Date:</label>
+                                                    <input type="date" class="form-control" id="cancel_date" name="cancel_date"
+                                                        value="<?= htmlspecialchars($fetch_orders['cancel_date']); ?>">
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label for="transport_date">Transport Date:</label>
-                                            <input type="date" class="form-control" id="transport_date" name="transport_date"
-                                                value="<?= htmlspecialchars($fetch_orders['transport_date']); ?>">
-                                        </div>    
+                                                <div class="form-group">
+                                                    <label for="transport_date">Transport Date:</label>
+                                                    <input type="date" class="form-control" id="transport_date"
+                                                        name="transport_date"
+                                                        value="<?= htmlspecialchars($fetch_orders['transport_date']); ?>">
+                                                </div>
 
-                                        <div class="form-group">
-                                            <label for="received_date_date">Received Date:</label>
-                                            <input type="date" class="form-control" id="received_date_date" name="received_date"
-                                                value="<?= htmlspecialchars($fetch_orders['received_date']); ?>">
-                                        </div>
+                                                <div class="form-group">
+                                                    <label for="received_date_date">Received Date:</label>
+                                                    <input type="date" class="form-control" id="received_date_date"
+                                                        name="received_date"
+                                                        value="<?= htmlspecialchars($fetch_orders['received_date']); ?>">
+                                                </div>
 
-                                        <div class="form-group">
-                                            <div class="flex-btn">
-                                                <input type="submit" class="btn w-100 btn-primary shadow-sm"
-                                                    value="Update" name="update_order">
-                                            </div>
-                                        </div>
-                                    </form>
+                                                <div class="form-group">
+                                                    <div class="flex-btn">
+                                                        <input type="submit" class="btn w-100 btn-primary shadow-sm"
+                                                            value="Update" name="update_order">
+                                                    </div>
+                                                </div>
+                                            </form>
 
-                                    <?php
+                                            <?php
                                         }
                                     }
                                     ?>
