@@ -4,7 +4,6 @@ include_once __DIR__ . "../../../partials/admin_boostrap.php";
 require_once __DIR__ . '../../../partials/connect.php';
 
 $admin_id = $_SESSION['admin_id'];
-
 if (!isset($admin_id)) {
     header('location:login.php');
     exit();
@@ -76,7 +75,6 @@ if (isset($message)) {
                                     <th scope="col" class="col-auto">Total Products</th>
                                     <th scope="col" class="col-auto">Total Price</th>
                                     <th scope="col" class="col-auto">Date Place</th>
-                                    <th scope="col" class="col-auto">Cancel Date</th>
                                     <th scope="col" class="col-auto">Check Date</th>
                                     <th scope="col" class="col-auto">Transport Date</th>
                                     <th scope="col" class="col-auto">Receive Date</th>
@@ -89,7 +87,7 @@ if (isset($message)) {
                                 <?php
                                 $i = 1;
                                 $select_info = $pdo->prepare("SELECT user.name, user.email, user.phone, user.address,
-                                                                    orders.placed_on, orders.cancel_date , orders.check_date, orders.transport_date,orders.received_date,orders.total_products,
+                                                                    orders.placed_on, orders.check_date, orders.transport_date,orders.received_date,orders.total_products,
                                                                     orders.total_price,
                                                                     orders.method, orders.payment_status, orders.id
                                                                 FROM user
@@ -118,19 +116,15 @@ if (isset($message)) {
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['address']); ?>
-                                            <td>
+                                            </td>
+                                            <td class="pt-4">
                                                 <?= htmlspecialchars($row['total_products']); ?>
                                             </td>
-                                            <td>
+                                            <td class="pt-4">
                                                 <?= htmlspecialchars($row['total_price']); ?>$
-                                            </td>
-
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['placed_on']); ?>
-                                            </td>
-                                            <td class="pt-4">
-                                                <?= htmlspecialchars($row['cancel_date']); ?>
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['check_date']); ?>
@@ -144,14 +138,11 @@ if (isset($message)) {
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['method']); ?>
                                             </td>
-                                            <td
-                                                class="pt-4 <?= ($row['payment_status'] == 'completed') ? 'text-success' : (($row['payment_status'] == 'cancel') ? 'text-danger' : 'text-primary'); ?>">
+                                            <td class="pt-4 text-success">
                                                 <?= htmlspecialchars($row['payment_status']); ?>
                                             </td>
                                             <td class="pt-4">
                                                 <a class="btn btn-danger" data-id="<?= htmlspecialchars($row['id']); ?>"
-                                                    data-check-date="<?= date('Y-M-d', strtotime($row['check_date'])); ?>"
-                                                    data-cancel-date="<?= date('Y-M-d', strtotime($row['cancel_date'])); ?>"
                                                     data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                                             </td>
                                         </tr>

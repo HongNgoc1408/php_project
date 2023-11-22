@@ -90,7 +90,7 @@ if (isset($message)) {
                                 <?php
                                 $i = 1;
                                 $select_info = $pdo->prepare("SELECT user.name, user.email, user.phone, user.address,
-                                                                    orders.placed_on, orders.cancel_date , orders.check_date, orders.transport_date,orders.received_date,orders.total_products,
+                                                                    orders.placed_on, orders.cancel_date, orders.check_date, orders.transport_date,orders.received_date,orders.total_products,
                                                                     orders.total_price,
                                                                     orders.method, orders.payment_status, orders.id
                                                                 FROM user
@@ -119,13 +119,12 @@ if (isset($message)) {
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['address']); ?>
-                                            <td>
+                                            </td>
+                                            <td class="pt-4">
                                                 <?= htmlspecialchars($row['total_products']); ?>
                                             </td>
-                                            <td>
+                                            <td class="pt-4">
                                                 <?= htmlspecialchars($row['total_price']); ?>$
-                                            </td>
-
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['placed_on']); ?>

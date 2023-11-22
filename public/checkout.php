@@ -7,7 +7,6 @@ include_once __DIR__ . '../../partials/header.php';
 require_once __DIR__ . '../../partials/connect.php';
 
 $user_id = $_SESSION['user_id'];
-
 if (!isset($user_id)) {
   header('location:login.php');
 }
@@ -93,7 +92,6 @@ if (isset($_POST['order'])) {
           // Xóa các sản phẩm trong giỏ hàng
           $delete_cart = $pdo->prepare("DELETE FROM `cart` WHERE user_id = ?");
           $delete_cart->execute([$user_id]);
-
           $message[] = 'Order placed successfully!';
         } else {
           // Xử lý trường hợp không đủ sản phẩm trong kho

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
         <?php
         $total = 0.00;
         $sub_total = 0.00;
-        $sql = "SELECT DISTINCT orders.id as order_id, orders.total_products, orders.total_price, orders.placed_on, orders.cancel_date, orders.check_date, orders.received_date, orders.method, orders.payment_status
+        $sql = "SELECT DISTINCT orders.id as order_id, orders.total_products, orders.total_price, orders.placed_on, orders.cancel_date, orders.check_date, orders.transport_date, orders.received_date, orders.method, orders.payment_status
                 FROM orders
                 WHERE orders.user_id = :user_id";
 
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
         if ($select_orders->rowCount() > 0) {
             while ($fetch_orders = $select_orders->fetch(PDO::FETCH_ASSOC)) {
                 ?>
-                <div class="row mt-5">
+                <div class="row">
 
                     <div class="col-12">
                         <table class="mt-5 pt-5">
@@ -132,27 +132,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
                                 </td>
                             </tr>
 
+                            <tr class="<?= ($fetch_orders['transport_date'] === '0000-00-00') ? 'd-none' : ''; ?>">
+                                <td>Transport Date</td>
+                                <td>
+                                    <?= htmlspecialchars($fetch_orders['transport_date']); ?>
+                                </td>
+                            </tr>
+
                             <tr class="<?= ($fetch_orders['received_date'] === '0000-00-00') ? 'd-none' : ''; ?>">
                                 <td>Received Date</td>
                                 <td>
                                     <?= htmlspecialchars($fetch_orders['received_date']); ?>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>Total Price</td>
                                 <td>$
                                     <?= htmlspecialchars($fetch_orders['total_price']); ?>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>Payment Method</td>
                                 <td>
                                     <?= htmlspecialchars($fetch_orders['method']); ?>
                                 </td>
                             </tr>
+
                             <tr>
                                 <td>Payment Status</td>
-                                <td class="text-capitalize <?= ($fetch_orders['payment_status'] == 'completed') ? 'text-primary' : 'text-danger'; ?>">
+                                <td
+                                    class="text-capitalize <?= ($fetch_orders['payment_status'] == 'completed') ? 'text-dark' : (($fetch_orders['payment_status'] == 'cancel') ? 'text-danger' : 'text-primary'); ?>">
                                     <?= htmlspecialchars($fetch_orders['payment_status']); ?>
                                 </td>
                             </tr>

@@ -118,13 +118,12 @@ if (isset($message)) {
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['address']); ?>
-                                            <td>
+                                            </td>
+                                            <td class="pt-4">
                                                 <?= htmlspecialchars($row['total_products']); ?>
                                             </td>
-                                            <td>
+                                            <td class="pt-4">
                                                 <?= htmlspecialchars($row['total_price']); ?>$
-                                            </td>
-
                                             </td>
                                             <td class="pt-4">
                                                 <?= htmlspecialchars($row['placed_on']); ?>
