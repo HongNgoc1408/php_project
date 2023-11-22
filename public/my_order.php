@@ -12,14 +12,11 @@ if (!isset($user_id)) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
     $order_id = $_POST['order_id'];
-
-    // Kiểm tra xem đơn đặt hàng có tồn tại không
     $check_order_query = $pdo->prepare("SELECT * FROM `orders` WHERE id = ? AND user_id = ?");
     $check_order_query->execute([$order_id, $user_id]);
     $order_data = $check_order_query->fetch(PDO::FETCH_ASSOC);
 
     if ($order_data) {
-        // Cập nhật cột payment_status thành 'cancel'
         $update_order_query = $pdo->prepare("UPDATE `orders` SET payment_status = 'cancel', cancel_date = current_timestamp() WHERE id = ?");
         $update_order_query->execute([$order_id]);
         $message[] = "Đơn hàng đã được hủy thành công!";
@@ -29,9 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
 }
 ;
 
-?>
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['received_order'])) {
+    $order_id = $_POST['order_id'];
+    $check_order_query = $pdo->prepare("SELECT * FROM `orders` WHERE id = ? AND user_id = ?");
+    $check_order_query->execute([$order_id, $user_id]);
+    $order_data = $check_order_query->fetch(PDO::FETCH_ASSOC);
 
-<!-- HTML và CSS của trang web -->
+    if ($order_data) {
+        $update_order_query = $pdo->prepare("UPDATE `orders` SET payment_status = 'completed', received_date = current_timestamp() WHERE id = ?");
+        $update_order_query->execute([$order_id]);
+        $message[] = "Đơn hàng đã được nhận thành công!";
+    } else {
+        $message[] = "Không tìm thấy đơn đặt hàng!";
+    }
+}
+;
+?>
 
 <title>My order</title>
 </head>
@@ -178,6 +188,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
                                     <button type="submit" name="cancel_order"
                                         class="buy-btn btn btn-primary mt-3 <?= ($fetch_orders['payment_status'] != 'pending') ? 'disabled' : ''; ?>"
                                         <?= ($fetch_orders['payment_status'] != 'pending') ? 'disabled' : ''; ?>>Cancel</button>
+                                    <button type="submit" name="received_order"
+                                        class="buy-btn btn btn-primary mt-3 <?= ($fetch_orders['payment_status'] != 'transport') ? 'disabled' : ''; ?>"
+                                        <?= ($fetch_orders['payment_status'] != 'transport') ? 'disabled' : ''; ?>>Received</button>
                                 </form>
                             </td>
                         </tr>

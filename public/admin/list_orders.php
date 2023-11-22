@@ -149,13 +149,13 @@ if (isset($message)) {
                                             </td>
                                             <td class="pt-4">
                                                 <a class="btn btn-primary"
-                                                    href="edit_orders.php?update=<?= htmlspecialchars($row['id']); ?>&check_date=<?= date('Y-M-d', strtotime($row['check_date'])); ?>&cancel_date=<?= date('Y-M-d', strtotime($row['cancel_date'])); ?>"
+                                                    href="edit_orders.php?update=<?= htmlspecialchars($row['id']); ?>&check_date=<?= date('Y-m-d', strtotime($row['check_date'])); ?>&cancel_date=<?= date('Y-m-d', strtotime($row['cancel_date'])); ?>"
                                                     class="option-btn">Edit</a>
                                             </td>
                                             <td class="pt-4">
                                                 <a class="btn btn-danger" data-id="<?= htmlspecialchars($row['id']); ?>"
-                                                    data-check-date="<?= date('Y-M-d', strtotime($row['check_date'])); ?>"
-                                                    data-cancel-date="<?= date('Y-M-d', strtotime($row['cancel_date'])); ?>"
+                                                    data-check-date="<?= date('Y-m-d', strtotime($row['check_date'])); ?>"
+                                                    data-cancel-date="<?= date('Y-m-d', strtotime($row['cancel_date'])); ?>"
                                                     data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                                             </td>
                                         </tr>
@@ -215,6 +215,7 @@ if (isset($message)) {
             </div>
         </div>
     </div>
+    
     <!-- Delete Modal -->
     <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog"
         aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">

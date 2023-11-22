@@ -150,7 +150,7 @@ if (isset($message)) {
                                             </td>
                                             <td class="pt-4">
                                                 <a class="btn btn-danger" data-id="<?= htmlspecialchars($row['id']); ?>"
-                                                    data-check-date="<?= date('Y-M-d', strtotime($row['check_date'])); ?>"
+                                                    data-check-date="<?= date('Y-m-d', strtotime($row['check_date'])); ?>"
                                                     data-toggle="modal" data-target="#deleteConfirmationModal">Delete</a>
                                             </td>
                                         </tr>

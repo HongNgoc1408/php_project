@@ -35,6 +35,7 @@ if (isset($_POST['update_order'])) {
     exit();
 }
 ;
+
 if (isset($message)) {
     foreach ($message as $message) {
         echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">

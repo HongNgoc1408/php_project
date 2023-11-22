@@ -12,24 +12,22 @@ if (!isset($admin_id)) {
 
 if (isset($_POST['update_order'])) {
     $update_id = $_POST['update_id'];
-    $check_date = $_POST['check_date'];
     $transport_date = $_POST['transport_date'];
     $received_date = $_POST['received_date'];
     if (isset($_POST['payment_status'])) {
         $payment_status = $_POST['payment_status'];
     } else {
-        $payment_status = 'pending';
+        $payment_status = 'transport';
     }
 
-    $update_order = $pdo->prepare("UPDATE orders SET check_date = :check_date, transport_date = :transport_date, received_date = :received_date, payment_status = :payment_status WHERE id = :update_id");
+    $update_order = $pdo->prepare("UPDATE orders SET transport_date = :transport_date, received_date = :received_date, payment_status = :payment_status WHERE id = :update_id");
 
-    $update_order->bindParam(':check_date', $check_date);
     $update_order->bindParam(':transport_date', $transport_date);
     $update_order->bindParam(':received_date', $received_date);
     $update_order->bindParam(':update_id', $update_id);
     $update_order->bindParam(':payment_status', $payment_status);
     $update_order->execute();
-    header('location: list_orders_checked.php');
+    header('location: list_orders_transport.php');
     exit();
 }
 ;
@@ -104,17 +102,9 @@ if (isset($message)) {
                                                         <option selected disabled>
                                                             <?= htmlspecialchars($fetch_orders['payment_status']); ?>
                                                         </option>
-                                                        <option value="pending">pending</option>
-                                                        <option value="checked">checked</option>
                                                         <option value="transport">transport</option>
                                                         <option value="completed">completed</option>
                                                     </select>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label for="check_date">Check Date:</label>
-                                                    <input type="date" class="form-control" id="check_date" name="check_date"
-                                                        value="<?= htmlspecialchars($fetch_orders['check_date']); ?>">
                                                 </div>
 
                                                 <div class="form-group">
@@ -193,5 +183,6 @@ if (isset($message)) {
             </div>
         </div>
     </div>
+    
     <?php
     include_once __DIR__ . '../../../partials/admin_footer.php';

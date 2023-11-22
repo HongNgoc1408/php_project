@@ -4,7 +4,6 @@ session_start();
 require_once __DIR__ . '../../../partials/connect.php';
 
 $admin_id = $_SESSION['admin_id'];
-
 if (!isset($admin_id)) {
     header('location:login.php');
     exit();
@@ -18,7 +17,7 @@ if (isset($_POST['update_order'])) {
     if (isset($_POST['payment_status'])) {
         $payment_status = $_POST['payment_status'];
     } else {
-        $payment_status = 'pending';
+        $payment_status = 'checked';
     }
 
     $update_order = $pdo->prepare("UPDATE orders SET check_date = :check_date, transport_date = :transport_date, received_date = :received_date, payment_status = :payment_status WHERE id = :update_id");
@@ -33,6 +32,8 @@ if (isset($_POST['update_order'])) {
     exit();
 }
 ;
+
+
 if (isset($message)) {
     foreach ($message as $message) {
         echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -104,7 +105,6 @@ if (isset($message)) {
                                                         <option selected disabled>
                                                             <?= htmlspecialchars($fetch_orders['payment_status']); ?>
                                                         </option>
-                                                        <option value="pending">pending</option>
                                                         <option value="checked">checked</option>
                                                         <option value="transport">transport</option>
                                                         <option value="completed">completed</option>
