@@ -116,7 +116,7 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                <a href="list_products" class="text-decoration-none">Sản phẩm</a>
+                                                <a href="list_products.php" class="text-decoration-none">Sản phẩm</a>
                                             </div>
                                             <?php
                                             $select_products = $pdo->prepare("SELECT * FROM `products`");
@@ -146,7 +146,8 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                <a href="list_orders.php" class="text-decoration-none">Đơn hàng</a>
+                                                <a href="list_orders.php" class="text-decoration-none text-info">Đơn
+                                                    hàng</a>
                                             </div>
                                             <?php
                                             $select_orders = $pdo->prepare("SELECT * FROM `orders`");
@@ -176,7 +177,8 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                <a href="list_orders_completed" class="text-decoration-none">Đơn
+                                                <a href="list_orders_completed.php"
+                                                    class="text-decoration-none text-success">Đơn
                                                     hàng đã hoàn thành</a>
                                             </div>
                                             <?php
@@ -198,12 +200,14 @@ if (!isset($admin_id)) {
 
                         <!-- Pending Orders Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-danger shadow h-100 py-2">
+                            <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                <a href="list_orders_pending" class="text-decoration-none">Đơn hàng đang chờ xử lý</a>
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                <a href="list_orders_pending.php"
+                                                    class="text-decoration-none text-warning">Đơn hàng
+                                                    đang chờ xử lý</a>
                                             </div>
                                             <?php
                                             $select_orders = $pdo->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
@@ -222,15 +226,99 @@ if (!isset($admin_id)) {
                             </div>
                         </div>
 
+                        <!-- Checked Orders Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <a href="list_orders_checked.php"
+                                                    class="text-decoration-none text-primary">Đơn hàng
+                                                    đã duyệt</a>
+                                            </div>
+                                            <?php
+                                            $select_orders = $pdo->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                                            $select_orders->execute(['checked']);
+                                            $number_of_checked_orders = $select_orders->rowCount();
+                                            ?>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= htmlspecialchars($number_of_checked_orders); ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-pen-to-square fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <!-- Product Card Example -->
+                        <!-- transport Orders Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                <a href="list_customers.php" class="text-decoration-none">Khách hàng</a>
+                                                <a href="list_orders_transport.php"
+                                                    class="text-decoration-none text-info">Đơn
+                                                    hàng đang vận chuyển</a>
+                                            </div>
+                                            <?php
+                                            $select_orders = $pdo->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                                            $select_orders->execute(['transport']);
+                                            $number_of_transport_orders = $select_orders->rowCount();
+                                            ?>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= htmlspecialchars($number_of_transport_orders); ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-truck-fast fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cancel Orders Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                <a href="list_orders_cancel.php"
+                                                    class="text-decoration-none text-danger">Đơn hàng
+                                                    đã hủy</a>
+                                            </div>
+                                            <?php
+                                            $select_orders = $pdo->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
+                                            $select_orders->execute(['cancel']);
+                                            $number_of_cancel_orders = $select_orders->rowCount();
+                                            ?>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= htmlspecialchars($number_of_cancel_orders); ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-xmark fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                <a href="list_customers.php"
+                                                    class="text-decoration-none text-info">Khách hàng</a>
                                             </div>
                                             <?php
                                             $select_users = $pdo->prepare("SELECT * FROM `user` WHERE role = ?");
@@ -253,7 +341,7 @@ if (!isset($admin_id)) {
                             </div>
                         </div>
 
-                        <!-- Pending Requests Card Example -->
+                        <!-- Message Requests Card Example -->
 
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
@@ -261,7 +349,36 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                <a href="message.php" class="text-decoration-none">
+                                                <a href="list_comment.php" class="text-decoration-none text-warning">
+                                                    Đánh giá
+                                                </a>
+                                            </div>
+                                            <?php
+                                            $select_reviews = $pdo->prepare("SELECT * FROM `reviews`");
+                                            $select_reviews->execute();
+                                            $number_of_reviews = $select_reviews->rowCount();
+                                            ?>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <?= htmlspecialchars($number_of_reviews); ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-star fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message Requests Card Example -->
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                <a href="message.php" class="text-decoration-none text-warning">
                                                     Yêu cầu
                                                 </a>
                                             </div>
