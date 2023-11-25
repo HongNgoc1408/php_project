@@ -146,7 +146,7 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            <a href="list_orders.php" class="text-decoration-none">Đơn hàng</a>
+                                                <a href="list_orders.php" class="text-decoration-none">Đơn hàng</a>
                                             </div>
                                             <?php
                                             $select_orders = $pdo->prepare("SELECT * FROM `orders`");
@@ -176,7 +176,9 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Đơn hàng đã hoàn thành</div>
+                                                <a href="list_orders_completed" class="text-decoration-none">Đơn
+                                                    hàng đã hoàn thành</a>
+                                            </div>
                                             <?php
                                             $select_orders = $pdo->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
                                             $select_orders->execute(['completed']);
@@ -201,7 +203,7 @@ if (!isset($admin_id)) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                                                Đơn hàng đang chờ xử lý
+                                                <a href="list_orders_pending" class="text-decoration-none">Đơn hàng đang chờ xử lý</a>
                                             </div>
                                             <?php
                                             $select_orders = $pdo->prepare("SELECT * FROM `orders` WHERE payment_status = ?");
