@@ -28,6 +28,21 @@
         Danh sách quản lý
     </div>
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+            aria-controls="collapseOne">
+            <i class="fa-solid fa-list"></i>
+            <!-- <i class="fas fa-fw fa-cog"></i> -->
+            <span>Quản lý danh mục</span>
+        </a>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Quản lý danh mục:</h6>
+                <a class="collapse-item" href="list_category.php">Danh mục sản phẩm</a>
+            </div>
+        </div>
+    </li>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -44,6 +59,21 @@
                 <a class="collapse-item" href="list_products.php">Danh sách sản phẩm</a>
                 <a class="collapse-item" href="add_products.php">Thêm sản phẩm</a>
                 <a class="collapse-item text-truncate" href="list_wishlist.php">Danh sách sản phẩm được yêu thích</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+            aria-controls="collapseThree">
+            <i class="fa-solid fa-list"></i>
+            <!-- <i class="fas fa-fw fa-cog"></i> -->
+            <span>Quản lý đánh giá</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Quản lý đánh giá:</h6>
                 <a class="collapse-item" href="list_comment.php">Danh sách đánh giá</a>
             </div>
         </div>
@@ -76,7 +106,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Account
+        Quản lý tài khoản
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
@@ -84,7 +114,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
             aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Tài khoản</span>
+            <span>Quản lý tài khoản</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">

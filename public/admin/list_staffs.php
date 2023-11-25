@@ -50,7 +50,14 @@ if (isset($_GET['delete'])) {
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Danh sách tài khoản nhân viên</h1>
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-4 text-gray-800">Danh sách tài khoản nhân viên</h1>
+                        <a href="add_staff.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-solid fa-plus fa-sm text-white-50"></i> Thêm nhân viên</a>
+                    </div>
+
+
 
                     <!-- Success mess -->
                     <?php if (isset($_SESSION['flash_message'])): ?>
