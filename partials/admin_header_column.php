@@ -55,7 +55,6 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Quản lý sản phẩm:</h6>
-                <a class="collapse-item" href="list_category.php">Danh mục sản phẩm</a>
                 <a class="collapse-item" href="list_products.php">Danh sách sản phẩm</a>
                 <a class="collapse-item" href="add_products.php">Thêm sản phẩm</a>
                 <a class="collapse-item text-truncate" href="list_wishlist.php">Danh sách sản phẩm được yêu thích</a>
@@ -98,8 +97,6 @@
             </div>
         </div>
     </li>
-
-
 
     <!-- Divider -->
     <hr class="sidebar-divider">

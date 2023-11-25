@@ -78,9 +78,9 @@ if (isset($message)) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Cập nhật trạng thái đơn hàng</h1>
-                        <a href="list_orders.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-                            <i class="fas fa-solid fa-list fa-sm text-white-50"></i> Danh sách đơn hàng</a>
+                        <h1 class="h3 mb-0 text-gray-800">Cập nhật trạng thái đơn hàng đang chờ xử lý</h1>
+                        <a href="list_orders_pending.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                            <i class="fas fa-solid fa-list fa-sm text-white-50"></i> Danh sách đơn hàng đang chờ xử lý</a>
                     </div>
 
                     <section class="">
