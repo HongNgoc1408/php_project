@@ -217,7 +217,7 @@ if (isset($_POST['order'])) {
             <div class="col-sm-6">
               <label class="form-label">Phone</label>
               <input type="text" class="form-control" name="phone"
-                value="<?= htmlspecialchars($fetch_profile['phone']); ?>" required>
+                value="<?= htmlspecialchars($fetch_profile['phone']); ?>" required disabled>
               <div class="invalid-feedback">
                 Valid last name is required.
               </div>
@@ -226,7 +226,7 @@ if (isset($_POST['order'])) {
             <div class="col-12">
               <label for="email" class="form-label">Email</label>
               <input type="email" class="form-control" name="email"
-                value="<?= htmlspecialchars($fetch_profile['email']); ?>" required>
+                value="<?= htmlspecialchars($fetch_profile['email']); ?>" required disabled>
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>

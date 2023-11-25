@@ -183,7 +183,7 @@ if (isset($_POST['update_profile'])) {
                                 <div class="col-md-3 col-12 p-2 fw-bold">Phone</div>
                                 <div class="col-md-9 col-10">
                                     <input class="form-control" type="tel" name="phone" placeholder="Update phone"
-                                        required value="<?= htmlspecialchars($fetch_profile['phone']); ?>">
+                                        required value="<?= htmlspecialchars($fetch_profile['phone']); ?>" disabled>
                                 </div>
                             </div>
 
@@ -191,7 +191,7 @@ if (isset($_POST['update_profile'])) {
                                 <div class="col-md-3 col-12 p-2 fw-bold">Email</div>
                                 <div class="col-md-9 col-10">
                                     <input class="form-control" type="email" name="email" placeholder="Update email"
-                                        required value="<?= htmlspecialchars($fetch_profile['email']); ?>">
+                                        required value="<?= htmlspecialchars($fetch_profile['email']); ?>" disabled>
                                 </div>
                             </div>
 

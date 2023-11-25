@@ -43,7 +43,7 @@ if (isset($_POST['update_password'])) {
 </head>
 
 <body id="change_password">
-   <section class="container my-5 pt-5">
+   <section class="container pt-5">
       <div class="container title text-center my-5 pt-5">
          <h2 class="position-relative d-inline-block">Change Password</h2>
       </div>
@@ -65,14 +65,14 @@ if (isset($_POST['update_password'])) {
                   class="text_center form-horizontal">
                   <div class="form-group p-1">
                      <input class="form-control" type="text" name="name"
-                        value="<?= htmlspecialchars($fetch_profile['name']); ?>" placeholder="update username" required
-                        >
+                        value="<?= htmlspecialchars($fetch_profile['name']); ?>" placeholder="Update username" required
+                        disabled>
                   </div>
 
                   <div class="form-group p-1">
                      <input class="form-control" type="email" name="email"
                         value="<?= htmlspecialchars($fetch_profile['email']); ?>" placeholder="Update email" required
-                        >
+                        disabled>
                   </div>
 
                   <div class="form-group p-1">
