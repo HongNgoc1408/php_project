@@ -106,14 +106,14 @@ if (isset($_POST['update_qty'])) {
                                         </div>
                                     </div>
                                 </td>
-                                
+
                                 <td>
                                     <div class="quantity">
                                         <input type="number" name="p_qty[<?= htmlspecialchars($fetch_cart['id']); ?>]"
                                             value="<?= htmlspecialchars($fetch_cart['quantity']); ?>" min="1">
+                                        <button class="bg-white border-0 text-primary" type="submit" name="update_qty">
+                                            Update</button>
                                     </div>
-                                    <button class="bg-white border-0 text-primary" type="submit"
-                                        name="update_qty">Update</button>
                                 </td>
                                 <td>
                                     <span class="product-price">$
@@ -121,7 +121,7 @@ if (isset($_POST['update_qty'])) {
                                     </span>
                                 </td>
                                 <td>
-                                    <a class="text-capitalize text-align"
+                                    <a class="text-capitalize text-align text-danger"
                                         href="cart.php?delete=<?= htmlspecialchars($fetch_cart['id']); ?>"
                                         onclick="return confirm('delete this from cart?');">delete</a>
                                 </td>
