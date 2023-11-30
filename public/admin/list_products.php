@@ -4,7 +4,6 @@ session_start();
 require_once __DIR__ . '../../../partials/connect.php';
 
 $admin_id = $_SESSION['admin_id'];
-
 if (!isset($admin_id)) {
     header('location:login.php');
 }
