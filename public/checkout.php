@@ -1,9 +1,6 @@
 <?php
-
 include_once __DIR__ . '../../partials/boostrap.php';
-
 include_once __DIR__ . '../../partials/header.php';
-
 require_once __DIR__ . '../../partials/connect.php';
 
 $user_id = $_SESSION['user_id'];
@@ -41,14 +38,11 @@ if (isset($_POST['order'])) {
 
   if ($cart_query->rowCount() > 0) {
     while ($fetch_cart_items = $cart_query->fetch(PDO::FETCH_ASSOC)) {
-      // Lấy product id và quantity
       $pid = $fetch_cart_items['pid'];
       $quantity = $fetch_cart_items['quantity'];
 
-      // Lưu thông tin sản phẩm vào mảng
       $orderDetails[] = array('pid' => $pid, 'quantity' => $quantity);
 
-      // Cập nhật tổng giá trị đơn hàng
       $cart_total_price = ($fetch_cart_items['price'] * $quantity);
       $cart_grand_total += $cart_total_price;
     }
@@ -62,44 +56,35 @@ if (isset($_POST['order'])) {
   }
 
   try {
-    // Cập nhật địa chỉ trong bảng `user`
     $update_user_address = $pdo->prepare("UPDATE `user` SET address = ? WHERE id = ?");
     $update_user_address->execute([$address, $user_id]);
     if ($cart_grand_total > 0) {
-      // Thêm đơn hàng vào bảng orders
       $insert_order = $pdo->prepare("INSERT INTO `orders`(user_id, method, total_products, total_price, placed_on) VALUES(?,?,?,?,?)");
       $insert_order->execute([$user_id, $method, $total_products, $cart_grand_total, $placed_on]);
-      // Lấy id của đơn hàng vừa chèn
       $order_id = $pdo->lastInsertId();
 
-      // Giảm số lượng sản phẩm trong bảng product
       foreach ($orderDetails as $orderDetail) {
         $product_id = $orderDetail['pid'];
         $quantity = $orderDetail['quantity'];
 
-        // Lấy số lượng sản phẩm hiện tại từ bảng product
         $product_query = $pdo->prepare("SELECT quantity FROM `products` WHERE id = ?");
         $product_query->execute([$product_id]);
         $current_quantity = $product_query->fetchColumn();
 
-        // Kiểm tra số lượng sản phẩm đủ để giảm không
         if ($current_quantity >= $quantity) {
-          // Giảm số lượng sản phẩm trong bảng product
           $update_product_quantity = $pdo->prepare("UPDATE `products` SET quantity = ? WHERE id = ?");
           $update_product_quantity->execute([$current_quantity - $quantity, $product_id]);
           $insert_orders_details = $pdo->prepare("INSERT INTO orders_details (order_id, pid, quantity) VALUES (?, ?, ?)");
           $insert_orders_details->execute([$order_id, $orderDetail['pid'], $orderDetail['quantity']]);
-          // Xóa các sản phẩm trong giỏ hàng
+          
           $delete_cart = $pdo->prepare("DELETE FROM `cart` WHERE user_id = ?");
           $delete_cart->execute([$user_id]);
           $message[] = 'Order placed successfully!';
         } else {
-          // Xử lý trường hợp không đủ sản phẩm trong kho
           $message[] = "Bạn đã đặt số lượng vượt quá số lượng sản phẩm trong kho.Số lượng sản phẩm trong kho còn $current_quantity";
           $delete_order = $pdo->prepare("DELETE FROM `orders` WHERE id = ?");
           $delete_order->execute([$user_id]);
         }
-        // Kiểm tra xem cập nhật đã thành công hay không và hiển thị thông báo
         if ($update_user_address->rowCount() > 0) {
           echo "Địa chỉ đã được cập nhật thành công!";
         } else {
@@ -173,7 +158,6 @@ if (isset($_POST['order'])) {
                     <?= htmlspecialchars($fetch_cart_items['quantity']); ?>
                   </span>
                 </li>
-
               </ul>
             </div>
 

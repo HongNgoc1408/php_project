@@ -10,9 +10,6 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-
-
-
 if (isset($_POST['send'])) {
     $msg = $_POST['msg'];
 

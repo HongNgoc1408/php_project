@@ -4,7 +4,6 @@ session_start();
 require_once __DIR__ . '../../../partials/connect.php';
 
 $admin_id = $_SESSION['admin_id'];
-
 if (!isset($admin_id)) {
     header('location:login.php');
 }
@@ -20,7 +19,6 @@ if (isset($message)) {
 }
 
 if (isset($_GET['delete'])) {
-
     $delete_id = $_GET['delete'];
     $delete_message = $pdo->prepare("DELETE FROM `message` WHERE id = ?");
     $delete_message->execute([$delete_id]);

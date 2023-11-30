@@ -293,13 +293,8 @@ if (isset($_POST['add_to_wishlist'])) {
             document.documentElement.scrollTop = 0;
         }
     </script>
-
 </body>
-
 </html>
 
-
-
 <?php
-
 include_once __DIR__ . '/../partials/footer.php';

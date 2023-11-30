@@ -135,7 +135,6 @@ if (isset($message)) {
                                                 $category_id = $fetch_products['category_id'];
                                                 $category_name = '';
 
-                                                // Thực hiện truy vấn SQL để lấy tên category
                                                 $select_category = $pdo->prepare("SELECT name FROM category WHERE id = ?");
                                                 $select_category->execute([$category_id]);
 

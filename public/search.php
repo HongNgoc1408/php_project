@@ -1,5 +1,4 @@
 <?php
-
 include_once __DIR__ . '../../partials/boostrap.php';
 include_once __DIR__ . '../../partials/header.php';
 require_once __DIR__ . '../../partials/connect.php';
@@ -41,12 +40,10 @@ if (isset($_POST['add_to_cart'])) {
     $check_cart_numbers->execute([$p_name, $user_id]);
 
     if ($check_cart_numbers->rowCount() > 0) {
-        // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
         $update_qty = $pdo->prepare("UPDATE `cart` SET quantity = quantity + ? WHERE name = ? AND user_id = ?");
         $update_qty->execute([$p_qty, $p_name, $user_id]);
         $message[] = 'Quantity updated in cart!';
     } else {
-        // Sản phẩm chưa có trong giỏ hàng, thêm mới
         $insert_cart = $pdo->prepare("INSERT INTO `cart`(user_id, pid, name, price, quantity, image) VALUES(?,?,?,?,?,?)");
         $insert_cart->execute([$user_id, $pid, $p_name, $p_price, $p_qty, $p_image]);
         $message[] = 'added to cart!';
@@ -164,8 +161,6 @@ if (isset($_POST['add_to_cart'])) {
     </div>
     </div>
 </section>
-
-
 
 <?php
 include_once __DIR__ . '/../partials/footer.php'; ?>
