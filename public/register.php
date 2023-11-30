@@ -111,15 +111,15 @@ if (isset($_POST['submit'])) {
         </div>
     </section>
 
-    <script>// step 1
+    <script>
         const ipnElement = document.querySelector('#register-password')
         const btnElement = document.querySelector('#btnPassword')
 
-        // step 2
+        
         btnElement.addEventListener('click', function () {
-            // step 3
+            
             const currentType = ipnElement.getAttribute('type')
-            // step 4
+            
             ipnElement.setAttribute(
                 'type',
                 currentType === 'password' ? 'text' : 'password'
@@ -129,9 +129,9 @@ if (isset($_POST['submit'])) {
         const ipnElement1 = document.querySelector('#register-confirm-password')
         const btnElement1 = document.querySelector('#btnPassword1')
         btnElement1.addEventListener('click', function () {
-            // step 3
+            
             const currentType1 = ipnElement1.getAttribute('type')
-            // step 4
+            
             ipnElement1.setAttribute(
                 'type',
                 currentType1 === 'password' ? 'text' : 'password'
